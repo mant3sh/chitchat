@@ -7,12 +7,13 @@ import SearchIcon from "@mui/icons-material/Search";
 import SendIcon from "@mui/icons-material/Send";
 import HelpIcon from "@mui/icons-material/Help";
 
-function Chatheader() {
+function Chatheader({ chatname }) {
   return (
     <div className="chatheader">
       <div className="chatheader__left">
         <h3>
-          <span className="chatHeader__hash">#</span>
+          <span className="chatHeader__hash"># </span>
+          {chatname}
         </h3>
       </div>
       <div className="chatheader__right">

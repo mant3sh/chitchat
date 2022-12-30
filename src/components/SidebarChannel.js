@@ -4,7 +4,8 @@ function SidebarChannel({ id, channel }) {
   return (
     <div className="sidebarchannel">
       <h4>
-        <span className="sidebarChannel__hash">#</span>meetup{" "}
+        <span className="sidebarChannel__hash">#</span>
+        {channel}
       </h4>
     </div>
   );

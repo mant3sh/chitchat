@@ -5,37 +5,46 @@ import AddIcon from "@mui/icons-material/Add";
 import SidebarChannel from "./SidebarChannel";
 import { Avatar } from "@mui/material";
 import MicIcon from "@mui/icons-material/Mic";
-import SettingsIcon from "@mui/icons-material/Settings";
+
 import HeadphonesIcon from "@mui/icons-material/Headphones";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../features/slices/userSlice";
+import { setChannel } from "../features/slices/appSlice";
 import { auth, db } from "../firebaseConfig";
+import { useCollection } from "react-firebase-hooks/firestore";
+import { collection, addDoc } from "firebase/firestore";
+import { resetChannel } from "../features/slices/appSlice";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 function Sidebar() {
-  const [channels, setChannels] = useState([]);
-  // useEffect(() => {
-  //   db.collection("channels").onSnapshot((snapshot) =>
-  //     setChannels(
-  //       snapshot.docs.map((doc) => ({
-  //         id: doc.id,
-  //         channel: doc.data(),
-  //       }))
-  //     )
-  //   );
-  // }, []);
-  const handelAddChannel = () => {
+  const ref = collection(db, "channels");
+  const [channel, loading, error] = useCollection(ref);
+  const handelAddChannel = async () => {
     const channelName = prompt("Enter a new channel name");
+    const newchannel = {
+      name: channelName,
+    };
+    const update = await addDoc(ref, newchannel);
   };
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   const handellogout = () => {
     auth.signOut();
+
     dispatch(logout());
+    dispatch(resetChannel());
+  };
+  const handelsetchannel = (id, name) => {
+    let selectedchannel = {
+      id: id,
+      name: name,
+    };
+    dispatch(setChannel(selectedchannel));
   };
   return (
     <div className="sidebar">
       <div className="sidebar__top">
-        <h3>mahantesha</h3>
+        <h3>ChitChat</h3>
         <ExpandMoreIcon />
       </div>
       <div className="sidebar__channels">
@@ -47,9 +56,14 @@ function Sidebar() {
           <AddIcon onClick={handelAddChannel} className="sidebar__addChannel" />
         </div>
         <div className="sidebar__channelsList">
-          {channels.map((i, idx) => (
-            <div key={idx}>
-              <SidebarChannel />
+          {channel?.docs.map((doc, idx) => (
+            <div
+              onClick={() => {
+                handelsetchannel(doc.id, doc.data().name);
+              }}
+              key={idx}
+            >
+              <SidebarChannel id={doc.id} channel={doc.data().name} />
             </div>
           ))}
         </div>
@@ -63,7 +77,7 @@ function Sidebar() {
         <div className="sidebar__profileIcons">
           <MicIcon />
           <HeadphonesIcon />
-          <SettingsIcon onClick={handellogout} />
+          <LogoutIcon onClick={handellogout} />
         </div>
       </div>
     </div>

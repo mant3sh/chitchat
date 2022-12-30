@@ -60,6 +60,10 @@
     gap: 3px;
 }
 
+.sidebar__profileIcons>.MuiSvgIcon-root {
+    cursor: pointer;
+}
+
 .sidebar__profileinfo {
     flex: 1;
     padding: 10px;

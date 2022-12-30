@@ -34,11 +34,19 @@
     outline-width: 0;
     color: white;
     font-size: large;
-    width: 100%;
+}
+
+.chat__input>form {
+    display: flex;
 }
 
 .chatinput__buttn {
-    display: none;
+    border: none;
+    padding: 10px;
+    background-color: transparent;
+    color: gray;
+    cursor: pointer;
+
 }
 
 .chat__input>form {
