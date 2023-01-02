@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ActionCodeOperation } from "firebase/auth";
 
 const appSlice = createSlice({
   name: "app",

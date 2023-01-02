@@ -1,18 +1,35 @@
 .message {
     display: flex;
     align-items: center;
-    padding: 20px;
-    color: white;
-
+    padding: 5px;
+    color: #ffffff;
+    padding-inline: 10px;
 
 }
 
+.actual__chat {
+    color: #dcddde;
+}
+
+h6 {
+    font-size: small;
+    font-weight: 500;
+}
+
+p {
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: #dcddde;
+}
+
+
 .message__info {
-    margin-left: 20px;
+    margin-left: 10px;
 }
 
 .message__timestamp {
-    color: gray;
+    font-size: 1rem;
+    color: #a3a6aa;
     font-size: smaller;
     margin-left: 10px;
 }
