@@ -19,14 +19,19 @@ import LogoutIcon from "@mui/icons-material/Logout";
 function Sidebar() {
   const ref = collection(db, "channels");
   const [channel, loading, error] = useCollection(ref);
+  const user = useSelector((state) => state.user.user);
   const handelAddChannel = async () => {
     const channelName = prompt("Enter a new channel name");
-    const newchannel = {
-      name: channelName,
-    };
-    const update = await addDoc(ref, newchannel);
+
+    if (channelName && channelName !== "") {
+      const newchannel = {
+        name: channelName,
+        createdBy: user.dispalyName,
+      };
+      const update = await addDoc(ref, newchannel);
+    }
   };
-  const user = useSelector((state) => state.user.user);
+
   const dispatch = useDispatch();
   const handellogout = () => {
     auth.signOut();

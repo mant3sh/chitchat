@@ -11,7 +11,13 @@ function Signin() {
   };
   const handelSignin = async (e) => {
     e.preventDefault();
-    const response = await signInWithEmailAndPassword(auth, email, password);
+    const response = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    ).catch((error) => {
+      window.alert(error.message);
+    });
   };
   return (
     <div>
